@@ -1552,8 +1552,8 @@ micro_wake_word:
     #   id: hey_jarvis
     # - model: hey_mycroft
     #   id: hey_mycroft
-    - model: hey_nav_eye
-      id: https://github.com/bvavra/home-assistant-voice-pe/raw/dev/microwakeword/hey_nav_eye/hey_nav_eye.json
+    - model: https://github.com/bvavra/home-assistant-voice-pe/raw/dev/microwakeword/hey_nav_eye/hey_nav_eye.json
+      id: hey_nav_eye
     - model: https://github.com/kahrendt/microWakeWord/releases/download/stop/stop.json
       id: stop
       internal: true
