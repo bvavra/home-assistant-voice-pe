@@ -1596,9 +1596,9 @@ voice_assistant:
   id: va
   microphone: asr_mic
   media_player: external_media_player
-  micro_wake_word: mww
-  use_wake_word: false
-  # use_wake_word: true
+  # micro_wake_word: mww
+  # use_wake_word: false
+  use_wake_word: true
   noise_suppression_level: 0
   auto_gain: 0 dbfs
   volume_multiplier: 1
