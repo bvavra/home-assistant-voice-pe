@@ -138,3 +138,8 @@ sdkconfig.*
 .tests/
 
 /components
+sounds/Backups
+sounds/Media
+sounds/peaks
+sounds/custom_sounds.rpp
+sounds/custom_source
