@@ -6,7 +6,6 @@
 #include "esphome/core/log.h"
 
 #include <cinttypes>
-#include <cstring>
 
 namespace esphome {
 namespace voice_kit {
@@ -253,7 +252,7 @@ VoiceKitUpdaterStatus VoiceKit::dfu_update_send_block_() {
 }
 
 uint32_t VoiceKit::load_buf_(uint8_t *buf, const uint8_t max_len, const uint32_t offset) {
-  if (offset >= this->firmware_bin_length_) {
+  if (offset > this->firmware_bin_length_) {
     ESP_LOGE(TAG, "Invalid offset");
     return 0;
   }
@@ -263,7 +262,9 @@ uint32_t VoiceKit::load_buf_(uint8_t *buf, const uint8_t max_len, const uint32_t
     buf_len = max_len;
   }
 
-  memcpy(buf, &this->firmware_bin_[offset], buf_len);
+  for (uint8_t i = 0; i < max_len; i++) {
+    buf[i] = this->firmware_bin_[offset + i];
+  }
   return buf_len;
 }
 
@@ -327,9 +328,9 @@ bool VoiceKit::dfu_get_version_() {
 }
 
 bool VoiceKit::dfu_reboot_() {
-  const uint8_t reboot_req[] = {DFU_CONTROLLER_SERVICER_RESID, DFU_CONTROLLER_SERVICER_RESID_DFU_REBOOT, 1, 0};
+  const uint8_t reboot_req[] = {DFU_CONTROLLER_SERVICER_RESID, DFU_CONTROLLER_SERVICER_RESID_DFU_REBOOT, 1};
 
-  auto error_code = this->write(reboot_req, sizeof(reboot_req));
+  auto error_code = this->write(reboot_req, 4);
   if (error_code != i2c::ERROR_OK) {
     ESP_LOGE(TAG, "Reboot request failed");
     return false;
